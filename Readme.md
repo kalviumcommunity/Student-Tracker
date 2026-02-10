@@ -220,3 +220,5 @@ A static layout that works on a single device can break on others due to varying
 
 ### Result
 The final UI maintains the same visual structure and usability across different screen sizes, delivering a consistent and accessible experience for rural coaching center users.
+-----------------------------------------------------------------------------------------
+
