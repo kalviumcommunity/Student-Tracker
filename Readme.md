@@ -196,4 +196,29 @@ Flutter simplifies cross-platform development by:
 - Combining performance with developer productivity
 
 This makes Flutter an efficient and modern framework for mobile application development.
+
+## Translating Figma Design into Flutter UI
+
+We translated our Figma prototype into a functional Flutter UI by focusing on visual consistency, responsiveness, and usability across devices.
+
+### Design Translation Approach
+- Figma spacing and hierarchy were mapped to Flutter widgets such as `Column`, `Row`, `Padding`, and `Card`
+- Reusable UI components (StudentTile) were created to match the design system
+- Colors, typography, and layout structure were centralized using a custom app theme
+
+### Responsiveness & Adaptability
+Instead of fixed pixel values, we used Flutter’s adaptive layout tools:
+
+- `Expanded` to allow text and icons to adjust dynamically
+- `MediaQuery` to scale padding and spacing based on screen width
+- `LayoutBuilder` to ensure components adapt to available constraints
+
+This prevented UI overlap on smaller devices and excessive spacing on tablets.
+
+### Case Study Reflection
+A static layout that works on a single device can break on others due to varying screen sizes and aspect ratios. By using Flutter’s flexible widgets and avoiding rigid dimensions, we preserved the original Figma design intent while ensuring consistent behavior across Android and iOS devices.
+
+### Result
+The final UI maintains the same visual structure and usability across different screen sizes, delivering a consistent and accessible experience for rural coaching center users.
 -----------------------------------------------------------------------------------------
+
