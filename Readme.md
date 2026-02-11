@@ -220,5 +220,39 @@ A static layout that works on a single device can break on others due to varying
 
 ### Result
 The final UI maintains the same visual structure and usability across different screen sizes, delivering a consistent and accessible experience for rural coaching center users.
------------------------------------------------------------------------------------------
 
+# 📱 Rural Attendance Tracker – Responsive Mobile UI
+
+## 📌 Project Overview
+
+The **Rural Attendance Tracker** is a Flutter-based mobile application designed to help teachers mark and manage student attendance efficiently. This project focuses on implementing a fully responsive and adaptive user interface that automatically adjusts to different screen sizes, device types, and orientations.
+
+The application ensures a consistent and user-friendly experience whether it is used on a smartphone or a tablet. Responsive behavior is implemented using Flutter’s `MediaQuery`, conditional layout rendering, and adaptive widgets such as `ListView`, `GridView`, and `Expanded`.
+
+---
+
+## 🎯 Task Objective
+
+The objective of this task was to:
+
+- Build a responsive layout screen.
+- Use `MediaQuery` to detect screen size.
+- Adapt the layout for phones and tablets.
+- Support portrait and landscape orientations.
+- Maintain consistent spacing and usability across devices.
+
+---
+
+## 🧠 Responsive Design Implementation
+
+The application uses `MediaQuery` to dynamically detect the screen width and height. Based on the screen width, the layout determines whether the device should be treated as a phone or a tablet.
+
+Devices with a width greater than 600 pixels are considered tablets, while smaller screens are treated as phones.
+
+### MediaQuery Implementation
+
+```dart
+final screenWidth = MediaQuery.of(context).size.width;
+final screenHeight = MediaQuery.of(context).size.height;
+
+bool isTablet = screenWidth > 600;
