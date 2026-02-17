@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/student_header.dart';
 
 class ResponsiveHome extends StatefulWidget {
   const ResponsiveHome({super.key});
@@ -21,6 +22,9 @@ class _ResponsiveHomeState extends State<ResponsiveHome> {
     });
   }
 
+  int get totalPresent =>
+      students.where((student) => student['present']).length;
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -30,54 +34,56 @@ class _ResponsiveHomeState extends State<ResponsiveHome> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Attendance – Squad 74'),
+        title: const Text('Student Tracker – Squad 74'),
         backgroundColor: Colors.green,
       ),
-
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: screenWidth * 0.04,
           vertical: screenHeight * 0.01,
         ),
-        child: isTablet
-            // Tablet Layout (Grid)
-            ? GridView.builder(
-                itemCount: students.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemBuilder: (context, index) {
-                  return buildStudentCard(index);
-                },
-              )
-            // Phone Layout (List)
-            : ListView.builder(
-                itemCount: students.length,
-                itemBuilder: (context, index) {
-                  return buildStudentCard(index);
-                },
-              ),
-      ),
+        child: Column(
+          children: [
+            // 🔹 Stateless Widget
+            const StudentHeader(
+              title: "Today's Attendance",
+              subtitle: "Tap a student to mark present/absent",
+            ),
 
-      // Footer Button
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(12),
-        child: SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              backgroundColor: Colors.green,
+            // 🔹 Dynamic Count (Stateful behavior)
+            Text(
+              "Total Present: $totalPresent",
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-            child: const Text(
-              "Submit Attendance",
-              style: TextStyle(fontSize: 16),
+            const SizedBox(height: 12),
+
+            // 🔹 Student List
+            Expanded(
+              child: isTablet
+                  ? GridView.builder(
+                      itemCount: students.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemBuilder: (context, index) {
+                        return buildStudentCard(index);
+                      },
+                    )
+                  : ListView.builder(
+                      itemCount: students.length,
+                      itemBuilder: (context, index) {
+                        return buildStudentCard(index);
+                      },
+                    ),
             ),
-          ),
+          ],
         ),
       ),
     );
