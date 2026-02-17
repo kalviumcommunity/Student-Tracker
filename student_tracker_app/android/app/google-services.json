@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "948990696227",
+    "project_id": "student-tracker-faa81",
+    "storage_bucket": "student-tracker-faa81.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948990696227:android:c64524abb26a3695024a96",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQgcDlKs9VJu2s293oiXmzKUJRx4ZlPeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
