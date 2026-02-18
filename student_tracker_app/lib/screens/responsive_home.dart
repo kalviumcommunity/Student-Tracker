@@ -19,8 +19,13 @@ class _ResponsiveHomeState extends State<ResponsiveHome> {
   void toggleAttendance(int index) {
     setState(() {
       students[index]['present'] = !students[index]['present'];
+
+      debugPrint(
+        '${students[index]['name']} attendance changed to ${students[index]['present']}',
+      );
     });
   }
+
 
   int get totalPresent =>
       students.where((student) => student['present']).length;
