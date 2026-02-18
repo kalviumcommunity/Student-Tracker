@@ -1,7 +1,7 @@
 
 ## Sprint 2 Project: Student Tracker 
 
----
+---------------
 
 ## 📌 Problem Statement
 
@@ -293,4 +293,4 @@ The widget tree helps organize UI components in a structured way using parent-ch
 
 Flutter’s reactive model improves performance because it rebuilds only the necessary widgets instead of manually updating the entire screen. This makes UI updates smooth and efficient.
 
-Through this assignment, I understood how setState() triggers UI rebuilds and how Flutter efficiently manages dynamic interfaces.
+Through this assignment, I understood how setState() triggers UI rebuilds and how Flutter efficiently manages dynamic interfaces..
