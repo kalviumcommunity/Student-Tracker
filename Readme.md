@@ -294,3 +294,28 @@ The widget tree helps organize UI components in a structured way using parent-ch
 Flutter’s reactive model improves performance because it rebuilds only the necessary widgets instead of manually updating the entire screen. This makes UI updates smooth and efficient.
 
 Through this assignment, I understood how setState() triggers UI rebuilds and how Flutter efficiently manages dynamic interfaces..
+
+## 📌 Overview
+
+In this task, I demonstrated the use of **Hot Reload**, **Debug Console**, and **Flutter DevTools** using my existing Rural Attendance Tracker app.
+
+No new screens were created. I used the existing Attendance screen to test development tools.
+
+---
+
+## 🔧 Changes Made in Code
+
+### 1️⃣ Added debugPrint() for Debug Console
+
+I modified the `toggleAttendance()` function to log attendance updates.
+
+```dart
+void toggleAttendance(int index) {
+  setState(() {
+    students[index]['present'] = !students[index]['present'];
+
+    debugPrint(
+      '${students[index]['name']} attendance changed to ${students[index]['present']}',
+    );
+  });
+}
