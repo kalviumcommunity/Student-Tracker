@@ -1,7 +1,7 @@
 
 ## Sprint 2 Project: Student Tracker 
 
----
+---------------
 
 ## 📌 Problem Statement
 
@@ -255,4 +255,94 @@ Devices with a width greater than 600 pixels are considered tablets, while small
 final screenWidth = MediaQuery.of(context).size.width;
 final screenHeight = MediaQuery.of(context).size.height;
 
+## 🔄 What is a Widget Tree?
+
+In Flutter, everything is a widget. These widgets are arranged in a hierarchical structure called the widget tree. 
+
+In this app, the root widget is MaterialApp. Inside it, the AttendanceScreen widget builds a Scaffold, which contains an AppBar and a ListView of student cards.
+
+Each student card is a child widget that contains text and an icon. This parent–child structure forms the widget tree.
+
+## ⚡ How Flutter’s Reactive UI Model Works
+
+Flutter follows a reactive programming model. When the application state changes, Flutter automatically rebuilds the affected widgets.
+
+In this app, when a student card is tapped:
+
+1. The toggleAttendance() function is called.
+2. setState() updates the student's attendance value.
+3. Flutter rebuilds the widget tree.
+4. The icon changes from red (absent) to green (present).
+
+Flutter does not redraw the entire screen. It efficiently updates only the widgets that depend on the changed state.
+
+
 bool isTablet = screenWidth > 600;
+
+## 🔄 What is a Widget Tree?
+
+In Flutter, everything is a widget. These widgets are arranged in a hierarchical structure called the widget tree. 
+
+In this app, the root widget is MaterialApp. Inside it, the AttendanceScreen widget builds a Scaffold, which contains an AppBar and a ListView of student cards.
+
+Each student card is a child widget that contains text and an icon. This parent–child structure forms the widget tree.
+
+## 💡 Reflection
+
+The widget tree helps organize UI components in a structured way using parent-child relationships. This makes complex user interfaces easier to manage.
+
+Flutter’s reactive model improves performance because it rebuilds only the necessary widgets instead of manually updating the entire screen. This makes UI updates smooth and efficient.
+
+Through this assignment, I understood how setState() triggers UI rebuilds and how Flutter efficiently manages dynamic interfaces..
+
+## 📌 Overview
+
+In this task, I demonstrated the use of **Hot Reload**, **Debug Console**, and **Flutter DevTools** using my existing Rural Attendance Tracker app.
+
+No new screens were created. I used the existing Attendance screen to test development tools.
+
+---
+
+## 🔧 Changes Made in Code
+
+### 1️⃣ Added debugPrint() for Debug Console
+
+I modified the `toggleAttendance()` function to log attendance updates.
+
+```dart
+void toggleAttendance(int index) {
+  setState(() {
+    students[index]['present'] = !students[index]['present'];
+
+    debugPrint(
+      '${students[index]['name']} attendance changed to ${students[index]['present']}',
+    );
+  });
+}
+🔐 Firebase Authentication (Email & Password)
+
+To ensure secure access to the Student Tracker application, we implemented Firebase Authentication using Email and Password.
+
+Features Implemented
+
+User Registration (Sign Up)
+
+User Login
+
+Session Management
+
+Secure Logout
+
+Form Validation for user inputs
+
+🔄 Authentication Flow
+
+User enters email and password.
+
+Input fields are validated using Form and TextFormField.
+
+Firebase Authentication verifies credentials.
+
+On success → User is redirected to the dashboard.
+
+On failure → Error message is displayed using SnackBar.
