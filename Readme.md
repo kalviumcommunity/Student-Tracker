@@ -318,6 +318,7 @@ void toggleAttendance(int index) {
       '${students[index]['name']} attendance changed to ${students[index]['present']}',
     );
   });
+
 }
 🔐 Firebase Authentication (Email & Password)
 
@@ -346,3 +347,6 @@ Firebase Authentication verifies credentials.
 On success → User is redirected to the dashboard.
 
 On failure → Error message is displayed using SnackBar.
+=======
+}
+
