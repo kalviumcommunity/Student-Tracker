@@ -10,28 +10,32 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   final AuthService authService = AuthService();
 
   void register() async {
-    final user = await authService.signUp(
-      emailController.text.trim(),
-      passwordController.text.trim(),
-    );
+    if (_formKey.currentState!.validate()) {
+      final user = await authService.signUp(
+        emailController.text.trim(),
+        passwordController.text.trim(),
+      );
 
-    if (user != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Signup Successful")),
-      );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Signup Failed")),
-      );
+      if (user != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Signup Successful")),
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginScreen()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Signup Failed")),
+        );
+      }
     }
   }
 
@@ -41,23 +45,41 @@ class _SignupScreenState extends State<SignupScreen> {
       appBar: AppBar(title: const Text("Sign Up")),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(labelText: "Email"),
-            ),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(labelText: "Password"),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: register,
-              child: const Text("Sign Up"),
-            ),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(labelText: "Email"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Enter email";
+                  }
+                  if (!value.contains("@")) {
+                    return "Enter valid email";
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(labelText: "Password"),
+                validator: (value) {
+                  if (value == null || value.length < 6) {
+                    return "Password must be 6+ characters";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: register,
+                child: const Text("Sign Up"),
+              ),
+            ],
+          ),
         ),
       ),
     );

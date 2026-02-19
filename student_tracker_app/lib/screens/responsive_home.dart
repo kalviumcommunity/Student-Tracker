@@ -1,123 +1,92 @@
 import 'package:flutter/material.dart';
-import '../widgets/student_header.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'add_student_screen.dart';
 
-class ResponsiveHome extends StatefulWidget {
+class ResponsiveHome extends StatelessWidget {
   const ResponsiveHome({super.key});
 
-  @override
-  State<ResponsiveHome> createState() => _ResponsiveHomeState();
-}
-
-class _ResponsiveHomeState extends State<ResponsiveHome> {
-  List<Map<String, dynamic>> students = [
-    {'name': 'Ramesh', 'present': false},
-    {'name': 'Sita', 'present': false},
-    {'name': 'Arjun', 'present': false},
-    {'name': 'Lakshmi', 'present': false},
-  ];
-
-  void toggleAttendance(int index) {
-    setState(() {
-      students[index]['present'] = !students[index]['present'];
-    });
+  void toggleAttendance(String docId, bool currentStatus) {
+    FirebaseFirestore.instance
+        .collection('students')
+        .doc(docId)
+        .update({'present': !currentStatus});
   }
-
-  int get totalPresent =>
-      students.where((student) => student['present']).length;
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    bool isTablet = screenWidth > 600;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Student Tracker – Squad 74'),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const AddStudentScreen(),
+                ),
+              );
+            },
+          )
+        ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.04,
-          vertical: screenHeight * 0.01,
-        ),
-        child: Column(
-          children: [
-            // 🔹 Stateless Widget
-            const StudentHeader(
-              title: "Today's Attendance",
-              subtitle: "Tap a student to mark present/absent",
-            ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('students')
+            .orderBy('createdAt', descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-            // 🔹 Dynamic Count (Stateful behavior)
-            Text(
-              "Total Present: $totalPresent",
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 12),
+          final students = snapshot.data!.docs;
 
-            // 🔹 Student List
-            Expanded(
-              child: isTablet
-                  ? GridView.builder(
-                      itemCount: students.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 3,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                      ),
-                      itemBuilder: (context, index) {
-                        return buildStudentCard(index);
-                      },
-                    )
-                  : ListView.builder(
-                      itemCount: students.length,
-                      itemBuilder: (context, index) {
-                        return buildStudentCard(index);
-                      },
-                    ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+          int totalPresent = students
+              .where((doc) => doc['present'] == true)
+              .length;
 
-  Widget buildStudentCard(int index) {
-    final student = students[index];
-
-    return Card(
-      child: InkWell(
-        onTap: () => toggleAttendance(index),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
+          return Column(
             children: [
+              const SizedBox(height: 10),
+              Text(
+                "Total Present: $totalPresent",
+                style: const TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
               Expanded(
-                child: Text(
-                  student['name'],
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                child: ListView.builder(
+                  itemCount: students.length,
+                  itemBuilder: (context, index) {
+                    final doc = students[index];
+                    final name = doc['name'];
+                    final present = doc['present'];
+
+                    return Card(
+                      child: ListTile(
+                        title: Text(name),
+                        trailing: Icon(
+                          present
+                              ? Icons.check_circle
+                              : Icons.cancel,
+                          color: present
+                              ? Colors.green
+                              : Colors.red,
+                        ),
+                        onTap: () =>
+                            toggleAttendance(doc.id, present),
+                      ),
+                    );
+                  },
                 ),
               ),
-              Icon(
-                student['present']
-                    ? Icons.check_circle
-                    : Icons.cancel,
-                color:
-                    student['present'] ? Colors.green : Colors.red,
-              ),
             ],
-          ),
-        ),
+          );
+        },
       ),
     );
   }
