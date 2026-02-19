@@ -14,7 +14,6 @@ class ResponsiveHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Student Tracker – Squad 74'),
@@ -39,8 +38,17 @@ class ResponsiveHome extends StatelessWidget {
             .orderBy('createdAt', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
+          if (snapshot.connectionState ==
+              ConnectionState.waiting) {
+            return const Center(
+                child: CircularProgressIndicator());
+          }
+
+          if (!snapshot.hasData ||
+              snapshot.data!.docs.isEmpty) {
+            return const Center(
+              child: Text("No students added yet"),
+            );
           }
 
           final students = snapshot.data!.docs;
@@ -55,7 +63,8 @@ class ResponsiveHome extends StatelessWidget {
               Text(
                 "Total Present: $totalPresent",
                 style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.bold),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               Expanded(
