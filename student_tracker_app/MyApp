@@ -1,0 +1,30 @@
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+
+          // 🔄 While checking login state
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
+
+          // ✅ If user is logged in
+          if (snapshot.hasData) {
+            return const HomeScreen();
+          }
+
+          // ❌ If user is NOT logged in
+          return const AuthScreen();
+        },
+      ),
+    );
+  }
+}
