@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/app_info_card.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatelessWidget{
   const DetailsScreen({super.key});
 
   @override
