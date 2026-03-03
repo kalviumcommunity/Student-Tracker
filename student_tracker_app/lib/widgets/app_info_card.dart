@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppInfoCard extends StatelessWidget{
+class AppInfoCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon;
