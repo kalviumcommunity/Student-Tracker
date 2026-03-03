@@ -318,4 +318,35 @@ void toggleAttendance(int index) {
       '${students[index]['name']} attendance changed to ${students[index]['present']}',
     );
   });
+
 }
+🔐 Firebase Authentication (Email & Password)
+
+To ensure secure access to the Student Tracker application, we implemented Firebase Authentication using Email and Password.
+
+Features Implemented
+
+User Registration (Sign Up)
+
+User Login
+
+Session Management
+
+Secure Logout
+
+Form Validation for user inputs
+
+🔄 Authentication Flow
+
+User enters email and password.
+
+Input fields are validated using Form and TextFormField.
+
+Firebase Authentication verifies credentials.
+
+On success → User is redirected to the dashboard.
+
+On failure → Error message is displayed using SnackBar.
+=======
+}
+
