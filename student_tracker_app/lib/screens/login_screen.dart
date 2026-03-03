@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'signup_screen.dart';
 import 'responsive_home.dart';
+import '../widgets/app_info_card.dart'; // ✅ NEW IMPORT
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -37,10 +38,16 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Login")),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            const AppInfoCard(
+              title: "Secure Login",
+              subtitle: "Firebase Authentication Enabled",
+              icon: Icons.lock,
+            ),
+
             TextField(
               controller: emailController,
               decoration: const InputDecoration(labelText: "Email"),
@@ -50,11 +57,14 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
               decoration: const InputDecoration(labelText: "Password"),
             ),
+
             const SizedBox(height: 20),
+
             ElevatedButton(
               onPressed: login,
               child: const Text("Login"),
             ),
+
             TextButton(
               onPressed: () {
                 Navigator.push(
