@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'signup_screen.dart';
 import 'responsive_home.dart';
-import '../widgets/app_info_card.dart'; // ✅ NEW IMPORT
+import '../widgets/app_info_card.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
