@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
-import '../widgets/app_info_card.dart';
 
-class DetailsScreen extends StatelessWidget{
+class AppInfoCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+
+  const AppInfoCard({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: Icon(icon, color: Colors.green),
+        title: Text(title),
+        subtitle: Text(subtitle),
+      ),
+    );
+  }
+}
+
+class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
 
   @override
@@ -13,7 +37,7 @@ class DetailsScreen extends StatelessWidget{
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
-        children: const [
+        children: <Widget>[
           AppInfoCard(
             title: "Student Records",
             subtitle: "View daily attendance logs",
