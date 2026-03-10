@@ -350,3 +350,5 @@ On failure → Error message is displayed using SnackBar.
 =======
 }
 
+HLD AND LLD LINK: https://www.figma.com/make/MgOoXO5DYjNnydg3KB0LL7/Flutter-Mobile-App?t=pUeaT23vR2QmM7TX-0
+
