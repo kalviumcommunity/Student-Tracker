@@ -7,7 +7,7 @@ class ScrollableViews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Scrollable Views"),
+        title: const Text("Student Tracker Scrollable Views"),
       ),
 
       body: SingleChildScrollView(
@@ -18,7 +18,7 @@ class ScrollableViews extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(10),
               child: Text(
-                "Student List",
+                "Student List (Horizontal Scroll)",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -34,7 +34,7 @@ class ScrollableViews extends StatelessWidget {
                 itemCount: 6,
                 itemBuilder: (context, index) {
                   return Container(
-                    width: 140,
+                    width: 150,
                     margin: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: Colors.blue[(index + 2) * 100],
@@ -60,7 +60,7 @@ class ScrollableViews extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(10),
               child: Text(
-                "Student Dashboard",
+                "Student Dashboard Grid",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
